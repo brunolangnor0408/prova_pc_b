@@ -1,121 +1,526 @@
-<!doctype html>
-<html lang="en">
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GoodPay</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./bootstrap/styles_complements.css">
+
+    <title>GameZone | Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- CSS do site -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- CSS do dashboard -->
+    <style>
+
+        body {
+            background: #0b0f19;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .dashboard-navbar {
+            background: #111827;
+            border-bottom: 1px solid #273449;
+        }
+
+        .dashboard-container {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .dashboard-card {
+            background: #151c2b;
+            border: 1px solid #26344b;
+            border-radius: 16px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, #172554, #312e81);
+            border: none;
+            border-radius: 18px;
+            color: white;
+        }
+
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #818cf8;
+        }
+
+        .dashboard-icon {
+            font-size: 35px;
+            color: #818cf8;
+        }
+
+        .dashboard-title span {
+            color: #818cf8;
+        }
+
+        .dashboard-menu {
+            background: #111827;
+            border: 1px solid #26344b;
+            border-radius: 16px;
+        }
+
+        .dashboard-menu a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .dashboard-menu a:hover {
+            background: #273449;
+            color: white;
+        }
+
+        .dashboard-menu i {
+            margin-right: 10px;
+        }
+
+        .dashboard-footer {
+            background: #111827;
+            border-top: 1px solid #273449;
+            padding: 25px;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        .game-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            height: 100%;
+        }
+
+        .game-box i {
+            font-size: 35px;
+            color: #818cf8;
+        }
+
+        .dashboard-button {
+            background: #6366f1;
+            color: white;
+            border: none;
+        }
+
+        .dashboard-button:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .dashboard-divider {
+            border-color: #334155;
+        }
+
+    </style>
+
 </head>
 
 <body onload="loadUserStorage()">
-    <header>
-        <section name="navbar-site">
-            <nav class="navbar navbar-dark bg-dark fixed-top">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <img src="./assets/logo_claro.png" alt="Logo Marca" width="45px" height="45px">
-                    </a>
-                    <div class="img-fluid">
-                        <img src="../public/assets/letreiro_claro.png" alt="Letreiro" width="25%">
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-instagram text-success"></i></h5>
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-youtube text-success"></i></h5>
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-facebook text-success"></i></h5>
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-twitter text-success"></i></h5>
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-tiktok text-success"></i></h5>
-                    </div>
-                    <div class="icon">
-                        <h5><i class="bi bi-line text-success"></i></h5>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">
-                            <i class="bi bi-piggy-bank-fill text-white"></i> Seus Ecopoints
-                        </button>
-                        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="visually-hidden">Ecopoints</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Conta</a></li>
-                            <li><a class="dropdown-item" href="#">Histórico de Ecopoints</a></li>
-                            <li><a class="dropdown-item" href="#">Saldo e Extratos</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sair da conta</a></li>
-                        </ul>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <img src="./assets/letreiro_claro.png" alt="Menu Titulo" width="100%">
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body bg-dark">
-                            <hr>
-                            <span id="load-extrato">
-                                javascript
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </section>
-    </header>
-    <main>
-        <section name="area-assinante" style="margin-top: 5%;">
-            <div class="container">
-                <div class="card mb-3" style="max-width: 100%">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <span id="load-img"></span>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title" id="load-nome">Card title</h5>
-                                <p class="card-text" id="load-email">E-mail do usuário</p>
-                                <p class="card-text"><small class="text-body-secondary" id="load-data">data
-                                        atualizaçao</small>
-                                </p>
-                                <span id="login-extrato">
-                                    javascript
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark fixed-top dashboard-navbar">
+
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="./index.html">
+                <i class="bi bi-controller text-primary"></i>
+                GameZone
+            </a>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <a href="./index.html" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-house"></i> Página inicial
+                </a>
+
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#menuDashboard">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
             </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MENU -->
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1"
+        id="menuDashboard">
+
+        <div class="offcanvas-header">
+
+            <h5 class="offcanvas-title">
+                <i class="bi bi-controller text-primary"></i>
+                GameZone
+            </h5>
+
+            <button type="button" class="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"></button>
+
+        </div>
+
+        <div class="offcanvas-body">
+
+            <hr class="dashboard-divider">
+
+            <a href="./index.html" class="nav-link text-light mb-3">
+                <i class="bi bi-house"></i> Página inicial
+            </a>
+
+            <a href="#perfil" class="nav-link text-light mb-3">
+                <i class="bi bi-person"></i> Meu perfil
+            </a>
+
+            <a href="#favoritos" class="nav-link text-light mb-3">
+                <i class="bi bi-controller"></i> Jogos favoritos
+            </a>
+
+            <a href="#explorar" class="nav-link text-light mb-3">
+                <i class="bi bi-stars"></i> Explorar
+            </a>
+
+            <hr class="dashboard-divider">
+
+            <span id="load-extrato"></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+    <main class="container dashboard-container">
+
+
+        <!-- BOAS VINDAS -->
+        <section class="mb-4">
+
+            <h1 class="dashboard-title">
+                Bem-vindo ao <span>GameZone</span>
+            </h1>
+
+            <p class="text-secondary">
+                Seu espaço dentro do universo gamer.
+            </p>
+
         </section>
-    </main>
-    <footer>
-        <script src="./engine/index.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-            integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-            crossorigin="anonymous"></script>
-    </footer>
 
-</body>
 
-</html>
+        <!-- PERFIL -->
+        <section id="perfil" class="mb-5">
+
+            <div class="card profile-card shadow">
+
+                <div class="card-body p-4">
+
+                    <div class="row align-items-center g-4">
+
+                        <div class="col-md-4 text-center">
+
+                            <span id="load-img">
+
+                                <img src="https://placehold.co/200x200/1e293b/ffffff?text=Gamer"
+                                    class="profile-image"
+                                    alt="Foto do jogador">
+
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <h2 id="load-nome">
+                                Jogador
+                            </h2>
+
+                            <p id="load-email" class="mb-2">
+                                E-mail do jogador
+                            </p>
+
+                            <p class="text-light opacity-75">
+
+                                <i class="bi bi-calendar"></i>
+
+                                <small id="load-data">
+                                    Informações do perfil
+                                </small>
+
+                            </p>
+
+                            <span id="login-extrato"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAINEL -->
+        <section class="mb-5">
+
+            <h2 class="mb-4">
+                <i class="bi bi-grid text-primary"></i>
+                Meu painel
+            </h2>
+
+            <div class="row g-4">
+
+                <!-- CARD 1 -->
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card dashboard-card h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-controller dashboard-icon"></i>
+
+                            <h4 class="mt-3">
+                                Universo Gamer
+                            </h4>
+
+                            <p class="text-secondary">
+                                Explore diferentes jogos,
+                                plataformas e experiências.
+                            </p>
+
+                            <a href="./index.html#destaques"
+                                class="btn dashboard-button">
+
+                                Explorar
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD 2 -->
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card dashboard-card h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-stars dashboard-icon"></i>
+
+                            <h4 class="mt-3">
+                                Novidades
+                            </h4>
+
+                            <p class="text-secondary">
+                                Confira lançamentos,
+                                curiosidades e notícias.
+                            </p>
+
+                            <a href="./index.html#universo"
+                                class="btn dashboard-button">
+
+                                Descobrir
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD 3 -->
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card dashboard-card h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-trophy dashboard-icon"></i>
+
+                            <h4 class="mt-3">
+                                eSports
+                            </h4>
+
+                            <p class="text-secondary">
+                                Conheça competições,
+                                equipes e o cenário competitivo.
+                            </p>
+
+                            <a href="./index.html#universo"
+                                class="btn dashboard-button">
+
+                                Conhecer
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- JOGOS -->
+        <section id="favoritos" class="mb-5">
+
+            <h2 class="mb-4">
+                <i class="bi bi-heart text-danger"></i>
+                Área gamer
+            </h2>
+
+            <div class="row g-4">
+
+
+                <!-- PC -->
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="dashboard-menu p-3 text-center">
+
+                        <div class="game-box">
+
+                            <i class="bi bi-pc-display"></i>
+
+                            <h5 class="mt-3">
+                                PC Gamer
+                            </h5>
+
+                            <p class="text-secondary">
+                                Computadores e jogos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PLAYSTATION -->
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="dashboard-menu p-3 text-center">
+
+                        <div class="game-box">
+
+                            <i class="bi bi-playstation"></i>
+
+                            <h5 class="mt-3">
+                                PlayStation
+                            </h5>
+
+                            <p class="text-secondary">
+                                Jogos e consoles Sony.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- XBOX -->
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="dashboard-menu p-3 text-center">
+
+                        <div class="game-box">
+
+                            <i class="bi bi-xbox"></i>
+
+                            <h5 class="mt-3">
+                                Xbox
+                            </h5>
+
+                            <p class="text-secondary">
+                                Jogos e consoles Microsoft.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NINTENDO -->
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="dashboard-menu p-3 text-center">
+
+                        <div class="game-box">
+
+                            <i class="bi bi-nintendo-switch"></i>
+
+                            <h5 class="mt-3">
+                                Nintendo
+                            </h5>
+
+                            <p class="text-secondary">
+                                Diversão portátil e consoles.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- EXPLORAR -->
+        <section id="explorar" class="mb-5">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body p-4">
+
+                    <h3>
+                        <i class="bi bi-compass text-primary"></i>
+                        Continue explorando
+                    </h3>
+
+                    <p class="text-secondary">
